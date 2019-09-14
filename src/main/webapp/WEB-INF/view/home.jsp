@@ -24,9 +24,9 @@
 		<h4>For Customers</h4>
 		<a href="visit/visitForm">Visits booking</a> <br>
 
-		<br>
+		<br><br>
 
-		<h4>For Admin</h4>
+		<h4>For Administrators</h4>
 		<a href="admin/adminPanel">Administrator panel</a> <br> <br>
 
 	</div>

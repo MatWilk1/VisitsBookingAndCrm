@@ -17,7 +17,7 @@
 	<h2 align="center">Customer Visits list</h2>
 	<hr>
 
-	<h3 align="center">All visits of </h3>
+	<h3 align="center">All visits of <c:out value="${customer.firstName} ${customer.lastName}"/> </h3>
 	<br>
 
 	<table class="table-list">

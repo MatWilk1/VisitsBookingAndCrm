@@ -4,9 +4,9 @@ html, body{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-div {
+div:not(.aaa){
 	margin: auto;
-	border-radius: 15px;
+	border-radius: 10px;
 	text-align: center;
 	background-color: #ecf0f1;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -38,7 +38,7 @@ div {
 .table-list th {
 	text-align: center;
 	border-bottom:1px solid gray;
-	background:#3498db;
+	background:#0984e3;
 	padding:8px;
 	color: #FFFFFF;
 }
@@ -48,4 +48,13 @@ div {
 }
 
 .table-list tr:nth-child(even) {background: #FFFFFF}
-.table-list tr:nth-child(odd) {background: #BBBBBB}	
+.table-list tr:nth-child(odd) {background: #b8dffc}	
+
+
+
+
+
+button:hover, input[type="submit"]:hover {
+	border: 2px solid #0984e3;
+	color: #0984e3;
+}

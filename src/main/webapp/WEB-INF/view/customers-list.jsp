@@ -17,8 +17,16 @@
 	<h2 align="center">CRM</h2>
 	<hr>
 
-	<h3 align="center">Customer list</h3>
+	<h3 align="center">Customers list</h3>
 	<br>
+	
+    <form:form align="center" action="search" method="GET">
+        Search customer: <input type="text" name="name" />
+        
+        <input type="submit" value="Search" />
+    </form:form>
+    
+    <br>
 
 	<table class="table-list">
 

@@ -10,6 +10,8 @@ public interface VisitService {
 	
 	public List<Visit> getVisits();
 	
+	List<Visit> getVisitsPeriod(LocalDateTime start, LocalDateTime end);
+	
 	public Visit getVisit(int id);
 	
 	public List<Visit> searchVisits(Customer customer);

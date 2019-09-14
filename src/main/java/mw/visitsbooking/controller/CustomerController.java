@@ -53,16 +53,30 @@ public class CustomerController {
 		// Redirect customer id to /customerVisitsList to show all existing visits
 		redirectAttributes.addAttribute("customerId", custId);
 		
-		return "redirect:/customer/customersVisits";
+		return "redirect:/customer/customerVisitsList";
 	}
 	
 	@GetMapping("/customerVisitsList")
 	public String customerVisits(@RequestParam("customerId") int id, Model model) {
 		
-		List<Visit> visits = visitService.searchVisits(customerService.getCustomer(id));
+		Customer customer = customerService.getCustomer(id);
+		
+		List<Visit> visits = visitService.searchVisits(customer);
 		
 		model.addAttribute("visits", visits);
+		model.addAttribute("customer", customer);
 		
 		return "customer-visits-list";
+	}
+	
+	@GetMapping("/search")
+	public String searchCustomer(@RequestParam("name") String name, Model model) {
+		
+		System.out.println("START search");
+		List<Customer> customers = customerService.searchCustomers(name);
+		
+		model.addAttribute("customers", customers);
+		
+		return "customers-list";
 	}
 }

@@ -23,7 +23,12 @@
 
 		<br>
 		
-		<a href="${pageContext.request.contextPath}/visit/list">Visits list</a>
+
+		
+		<c:url var="visitsLink"	value="/visit/list">
+			<c:param name="period" value="all" />
+		</c:url>
+		<a href="${visitsLink}">Visits list</a>
 		
 		<br><br>
 		
@@ -40,3 +45,5 @@
 </body>
 
 </html>
+
+		<!-- <a href="${pageContext.request.contextPath}/visit/list">Visits list</a> -->

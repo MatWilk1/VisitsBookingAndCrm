@@ -101,10 +101,37 @@ public class VisitController {
 	}
 	
 	
+//	@GetMapping("/list")
+//	public String showVisitsList(Model model) {
+//		
+//		List<Visit> visits = visitService.getVisits();
+//		
+//		model.addAttribute("visits", visits);
+//		
+//		return "visits-list";
+//	}
+	
+	
 	@GetMapping("/list")
-	public String showVisitsList(Model model) {
+	public String showVisitsList(@RequestParam("period") String per, Model model) {
 		
-		List<Visit> visits = visitService.getVisits();
+		List<Visit> visits = new ArrayList<Visit>();
+		
+		System.out.println("==> Start showVisitsList: per = " + per);
+		
+		if(per.equals("all")) {
+			visits = visitService.getVisits();
+		}else if(per.equals("today")) {
+			visits = visitService.getVisitsPeriod(LocalDateTime.now().toLocalDate().atStartOfDay(), LocalDateTime.now().toLocalDate().atStartOfDay().plusDays(1));
+			System.out.println("Today:");
+			System.out.println("START: " + LocalDateTime.now().toLocalDate().atStartOfDay());
+			System.out.println("END: " + LocalDateTime.now().toLocalDate().atStartOfDay().plusDays(1));
+		}else if(per.equals("future")) {
+			visits = visitService.getVisitsPeriod(LocalDateTime.now(), LocalDateTime.now().toLocalDate().atStartOfDay().plusYears(1));
+			System.out.println("Future:");
+			System.out.println("START: " + LocalDateTime.now());
+			System.out.println("END: " + LocalDateTime.now().toLocalDate().atStartOfDay().plusYears(1));
+		}else {visits = null;};
 		
 		model.addAttribute("visits", visits);
 		

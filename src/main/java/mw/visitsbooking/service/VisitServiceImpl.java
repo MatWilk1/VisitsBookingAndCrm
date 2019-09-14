@@ -27,6 +27,13 @@ public class VisitServiceImpl implements VisitService {
 
 		return visitDAO.getVisits();
 	}
+	
+	@Override
+	@Transactional
+	public List<Visit> getVisitsPeriod(LocalDateTime start, LocalDateTime end) {
+		
+		return visitDAO.getVisitsPeriod(start, end);
+	}
 
 	@Override
 	@Transactional
@@ -75,6 +82,7 @@ public class VisitServiceImpl implements VisitService {
 			// Visits starts at 9:00 ...
 			LocalDateTime startVisits = today.plusDays(i).atTime(9, 0);
 			
+			// Without Saturdays and Sundays
 			if(!startVisits.getDayOfWeek().equals(DayOfWeek.SATURDAY) && !startVisits.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
 				// ... every hour
 				for (int j = 0; j <= 450; j += visitFrequency) {

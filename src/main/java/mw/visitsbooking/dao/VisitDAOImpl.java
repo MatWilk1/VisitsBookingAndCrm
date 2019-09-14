@@ -1,5 +1,6 @@
 package mw.visitsbooking.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -22,7 +23,22 @@ public class VisitDAOImpl implements VisitDAO {
 
 		Session session = sessionFactory.getCurrentSession();
 
-		Query<Visit> query = session.createQuery("from Visit order by id", Visit.class);
+		Query<Visit> query = session.createQuery("from Visit order by date", Visit.class);
+
+		List<Visit> visits = query.getResultList();
+
+		return visits;
+
+	}
+	
+	@Override
+	public List<Visit> getVisitsPeriod(LocalDateTime start, LocalDateTime end) {
+
+		Session session = sessionFactory.getCurrentSession();
+
+		Query<Visit> query = session.createQuery("from Visit where date between :start and :end order by date", Visit.class);
+		query.setParameter("start", start);
+		query.setParameter("end", end);
 
 		List<Visit> visits = query.getResultList();
 
@@ -47,7 +63,7 @@ public class VisitDAOImpl implements VisitDAO {
 
 		Query<Visit> query = null;
 
-		query = session.createQuery("from Visit where customer=:customer", Visit.class);
+		query = session.createQuery("from Visit where customer=:customer order by date", Visit.class);
 		query.setParameter("customer", customer);
 
 		List<Visit> visits = query.getResultList();
