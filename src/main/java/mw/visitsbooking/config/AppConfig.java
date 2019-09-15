@@ -49,14 +49,14 @@ public class AppConfig implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public DataSource myDataSource() {
+	public DataSource dataSource() {
 
 		// create connection pool
-		ComboPooledDataSource myDataSource = new ComboPooledDataSource();
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
 		// set the jdbc driver
 		try {
-			myDataSource.setDriverClass(env.getProperty("jdbc.driver"));
+			dataSource.setDriverClass(env.getProperty("jdbc.driver"));
 		} catch (PropertyVetoException exc) {
 			throw new RuntimeException(exc);
 		}
@@ -67,17 +67,17 @@ public class AppConfig implements WebMvcConfigurer {
 		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
 
 		// set database connection props
-		myDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
-		myDataSource.setUser(env.getProperty("jdbc.user"));
-		myDataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+		dataSource.setUser(env.getProperty("jdbc.user"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
 
 		// set connection pool props
-		myDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
-		myDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
-		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
-		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+		dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+		dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+		dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
+		dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 
-		return myDataSource;
+		return dataSource;
 	}
 
 	private Properties getHibernateProperties() {
@@ -109,7 +109,7 @@ public class AppConfig implements WebMvcConfigurer {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		// set the properties
-		sessionFactory.setDataSource(myDataSource());
+		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 

@@ -20,7 +20,7 @@
 	<h3 align="center">Choose list option</h3>
 	<br>
 
-	<div class="aaa" align="center">
+	<div class="visit-list-options" align="center">
 	<form action="list" method="get">
 		<button name="period" value="all">All visits</button>
 		  |  

@@ -91,8 +91,6 @@ public class VisitServiceImpl implements VisitService {
 			}
 		}
 
-		System.out.println(terms);
-
 		// Check which visit terms already passed
 		List<LocalDateTime> allPassedTodayTerms = new ArrayList<>();
 
@@ -101,13 +99,10 @@ public class VisitServiceImpl implements VisitService {
 		// Time between start of first visit till now plus 1 hour (can't book visit few minutes before start)
 		Duration timeFromBegToNow = Duration.between(startVisits, LocalDateTime.now().plusHours(1));
 		long minutesFromBegToNow = timeFromBegToNow.toMinutes();
-		System.out.println(minutesFromBegToNow);
 
 		for (int j = 0; j < minutesFromBegToNow; j += visitFrequency) {
 			allPassedTodayTerms.add(startVisits.plusMinutes(j));
 		}
-
-		System.out.println(allPassedTodayTerms);
 
 		// Take all already booked terms
 		List<Visit> visits = visitDAO.getVisits();
@@ -116,14 +111,10 @@ public class VisitServiceImpl implements VisitService {
 			bookedTerms.add(visit.getDate());
 		}
 
-		System.out.println(bookedTerms);
-
 		// Remove from all terms today passed terms and already booked terms
 		terms.removeAll(allPassedTodayTerms);
 		terms.removeAll(bookedTerms);
 		List<LocalDateTime> possibleTerms = terms;
-
-		System.out.println(possibleTerms);
 
 		return possibleTerms;
 	}
