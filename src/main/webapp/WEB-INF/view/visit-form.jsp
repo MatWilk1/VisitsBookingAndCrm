@@ -76,7 +76,7 @@
 
 			<!-- Show info if chosen term is already booked and show all free visit terms in chosen day -->
 			<c:if test="${(visit.bookedDate == true) and (not empty free)}">
-				<p style="color: red;">
+				<p style="color: red; font-size:13px">
 					Term is already booked. Available this day are: <br>
 					${free}
 				</p>

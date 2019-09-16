@@ -20,7 +20,7 @@
 	<h3 align="center">Welcome on our home page</h3>
 	<br>
 
-	<div align="center" style="background-color: #ecf0f1">
+	<div>
 
 		<h4>For Customers</h4>
 		<a href="visit/visitForm">Visits booking</a> <br>
@@ -28,6 +28,8 @@
 		<br><br>
 
 		<h4>For Administrators</h4>
+		<p style="margin-top:-20px; font-size:12px;">(login data from the attached SQL file: <br>
+		username/password: admin1/admin1 or admin2/admin2)</p>
 		<a href="admin/adminPanel">Administrator panel</a> <br> <br>
 		
 		
