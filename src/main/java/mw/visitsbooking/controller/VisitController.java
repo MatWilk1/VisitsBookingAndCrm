@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mw.visitsbooking.entity.Customer;
 import mw.visitsbooking.entity.Visit;
@@ -68,8 +69,6 @@ public class VisitController {
 
 		System.out.println("Binding result: " + bindingResult);
 
-		System.out.println("Visit: " + visit);
-
 		Customer customer = visit.getCustomer();
 		customer.setVisits(Arrays.asList(visit));
 
@@ -81,13 +80,13 @@ public class VisitController {
 			List<LocalTime> freeTerms = new ArrayList<>();
 			freeTerms = getFreeVisitHours(visitService.getPossibleVisitTerms(), visit.getChosenDate());
 			model.addAttribute("free", freeTerms);
-			System.out.println("Wolne tego dnia: " + freeTerms);
+
 			return "visit-form";
 		} else {
 			// Check if customer with the same firstName and lastName and (phone or e-mail) exists
 			// If exists update his phone or e-mail if one of them was changed
 			int id = customerService.getIdIfExists(customer);
-			System.out.println(id);
+
 			if (id == 0) {
 				customerService.saveCustomer(customer);
 			} else {
@@ -101,17 +100,6 @@ public class VisitController {
 	}
 	
 	
-//	@GetMapping("/list")
-//	public String showVisitsList(Model model) {
-//		
-//		List<Visit> visits = visitService.getVisits();
-//		
-//		model.addAttribute("visits", visits);
-//		
-//		return "visits-list";
-//	}
-	
-	
 	@GetMapping("/list")
 	public String showVisitsList(@RequestParam("period") String per, Model model) {
 		
@@ -123,14 +111,8 @@ public class VisitController {
 			visits = visitService.getVisits();
 		}else if(per.equals("today")) {
 			visits = visitService.getVisitsPeriod(LocalDateTime.now().toLocalDate().atStartOfDay(), LocalDateTime.now().toLocalDate().atStartOfDay().plusDays(1));
-			System.out.println("Today:");
-			System.out.println("START: " + LocalDateTime.now().toLocalDate().atStartOfDay());
-			System.out.println("END: " + LocalDateTime.now().toLocalDate().atStartOfDay().plusDays(1));
 		}else if(per.equals("future")) {
 			visits = visitService.getVisitsPeriod(LocalDateTime.now(), LocalDateTime.now().toLocalDate().atStartOfDay().plusYears(1));
-			System.out.println("Future:");
-			System.out.println("START: " + LocalDateTime.now());
-			System.out.println("END: " + LocalDateTime.now().toLocalDate().atStartOfDay().plusYears(1));
 		}else {visits = null;};
 		
 		model.addAttribute("visits", visits);
@@ -140,9 +122,12 @@ public class VisitController {
 	
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("visitId") int id) {
+	public String delete(@RequestParam("visitId") int id, RedirectAttributes redirectAttributes) {
 		
 		visitService.deleteVisit(id);
+		
+		// Redirect "period" to /list and show all existing visits
+		redirectAttributes.addAttribute("period", "all");
 		
 		return "redirect:/visit/list";
 	}

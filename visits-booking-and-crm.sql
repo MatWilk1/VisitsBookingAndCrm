@@ -65,4 +65,15 @@ VALUES
 ('admin1','ROLE_ADMIN'),
 ('admin2','ROLE_ADMIN');
 
+
+DROP TABLE IF EXISTS `log`;
+
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;

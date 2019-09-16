@@ -31,7 +31,7 @@ public class CustomerController {
 		List<Customer> customers = customerService.getCustomers();
 		
 		model.addAttribute("customers", customers);
-		
+			
 		return "customers-list";
 	}
 	
@@ -48,6 +48,7 @@ public class CustomerController {
 		
 		Customer cust = visitService.getVisit(id).getCustomer();
 		int custId =  cust.getId();
+		
 		visitService.deleteVisit(id);
 
 		// Redirect customer id to /customerVisitsList to show all existing visits
