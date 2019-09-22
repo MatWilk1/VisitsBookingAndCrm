@@ -13,20 +13,22 @@
 
 <body>
 
-	<h2 align="center">Visit confirmation page</h2>
-	<hr>
+	<div class="top">
+		<h1 class="heading">Visit confirmation page</h1>
+	</div>
+	
+	<div class="bottom">
+		<br>
 
-	<h3 align="center">Visit confirmed</h3>
-	<br>
-
-	<div align="center" style="background-color: #ecf0f1">
+		<h3 align="center">Visit confirmed</h3>
+		<br>
 		
 		<p>Visit details:</p>
 		<br>
 
 		First name: <b>${visit.customer.firstName}</b> Last name: <b>${visit.customer.lastName}</b>
-		<br> Phone number: <b>${visit.customer.phoneNumber}</b> E-mail: <b>${visit.customer.email}</b>
-		<br> 
+		<br><br> Phone number: <b>${visit.customer.phoneNumber}</b> E-mail: <b>${visit.customer.email}</b>
+		<br><br>
 		Date of the visit: <b>${visit.chosenDate}  ${visit.chosenTime}</b>
 		<br><br> 
 		

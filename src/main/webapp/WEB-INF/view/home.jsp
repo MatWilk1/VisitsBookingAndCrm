@@ -14,27 +14,29 @@
 
 <body>
 
-	<h2 align="center">Visits booking and CRM home page</h2>
-	<hr>
-
-	<h3 align="center">Welcome on our home page</h3>
-	<br>
-
-	<div>
-
+	<div class="top">
+		<h1 class="heading">Visits booking and CRM</h1>
+	</div>
+	
+	<div class="bottom">
+		<br>
+		
+		<h3 align="center">Welcome on our home page</h3>
+		<br>
+	
 		<h4>For Customers</h4>
 		<a href="visit/visitForm">Visits booking</a> <br>
-
-		<br><br>
-
+	
+		<br><br><br>
+	
 		<h4>For Administrators</h4>
-		<p style="margin-top:-20px; font-size:12px;">(login data from the attached SQL file: <br>
+		<p style="margin-top:0px; font-size:12px;">(login data from the attached SQL file: <br>
 		username/password: admin1/admin1 or admin2/admin2)</p>
 		<a href="admin/adminPanel">Administrator panel</a> <br> <br>
 		
 		
 		<br>
-
+	
 	</div>
 
 </body>

@@ -13,18 +13,16 @@
 </head>
 
 <body>
-
-	<h2 align="center">Administrator panel</h2>
-	<hr>
 	
-	<h3 align="center">Choose action</h3>
-	<br>
+	<div class="top">
+		<h1 class="heading">Administrator panel</h1>
+	</div>
 	
-	<div align="center" style="background-color:#ecf0f1">
-
+	<div class="bottom">
 		<br>
 		
-
+		<h3 align="center">Choose action</h3>
+		<br>
 		
 		<c:url var="visitsLink"	value="/visit/list">
 			<c:param name="period" value="all" />
@@ -52,5 +50,3 @@
 </body>
 
 </html>
-
-		<!-- <a href="${pageContext.request.contextPath}/visit/list">Visits list</a> -->

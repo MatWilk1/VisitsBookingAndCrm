@@ -15,14 +15,15 @@
 
 <body>
 
-	<h2 align="center">Visits booking form</h2>
-	<hr>
-
-	<h3 align="center">Fill the visit form</h3>
-
+	<div class="top">
+		<h1 class="heading">Visits booking form</h1>
+	</div>
+	
+	<div class="bottom">
 	<br>
-
-	<div>
+	
+	<h3 align="center">Fill the visit form</h3>
+	<br>
 
 		<form:form action="processVisitForm" modelAttribute="visit">
 
@@ -98,15 +99,6 @@
 	</div>
 
 
-
 </body>
 
 </html>
-
-
-<!--  <input type="button" value="Add hours"
-				onclick="location.href='showTermHours'" />  -->
-
-<!-- <form action="/showTermHours" method="post">
-			<input type="button" value="Add hours" />
-		</form> -->

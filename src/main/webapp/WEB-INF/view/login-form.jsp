@@ -13,10 +13,16 @@
 
 <body>
 
-	<h3 align="center">Login Page</h3>
-
-	<div>
+	<div class="top">
+		<h1 class="heading">Login Page</h1>
+	</div>
+	
+	<div class="bottom">
 		<br>
+		
+		<h3 align="center">Login details</h3>
+		<br>
+		
 		<form:form action="${pageContext.request.contextPath}/authenticateUser"
 			method="POST">
 
@@ -29,11 +35,11 @@
 			</c:if>
 
 			<p>
-				User name: <input type="text" name="username" />
+				<input type="text" name="username" placeholder="Username"/>
 			</p>
 
 			<p>
-				Password: <input type="password" name="password" />
+				<input type="password" name="password" placeholder="Password"/>
 			</p>
 
 			<input type="submit" value="Login" />

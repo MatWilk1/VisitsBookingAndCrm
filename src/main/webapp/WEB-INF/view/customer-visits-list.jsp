@@ -14,13 +14,15 @@
 
 <body>
 
-	<h2 align="center">Customer Visits list</h2>
-	<hr>
+	<div class="top">
+		<h1 class="heading">Customer Visits list</h1>
+	</div>
 
+	<br>
 	<h3 align="center">All visits of <c:out value="${customer.firstName} ${customer.lastName}"/> </h3>
 	<br>
 
-	<table class="table-list">
+	<table class="table-list table-list-small ">
 
 		<tr align="left">
 			<th>ID</th>
