@@ -44,9 +44,8 @@ public class CustomerController {
 
 	@GetMapping("/list")
 	public String showCustomersList(Model model) {
-
+		
 		List<Customer> customers = customerService.getCustomers();
-
 		model.addAttribute("customers", customers);
 
 		return "customers-list";
@@ -115,7 +114,6 @@ public class CustomerController {
 	@GetMapping("/search")
 	public String searchCustomer(@RequestParam("name") String name, Model model) {
 
-		System.out.println("START search");
 		List<Customer> customers = customerService.searchCustomers(name);
 
 		model.addAttribute("customers", customers);

@@ -19,5 +19,6 @@ public interface VisitDAO {
 	public void saveVisit(Visit visit);
 	
 	public void deleteVisit(int id);
+	
 
 }

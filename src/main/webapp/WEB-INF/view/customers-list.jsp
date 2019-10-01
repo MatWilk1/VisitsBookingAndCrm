@@ -44,7 +44,8 @@
 			</tr>
 	
 			<c:forEach var="customer" items="${customers}">
-	
+			
+	 
 				<tr>
 					<td>${customer.id}</td>
 					<td>${customer.firstName}</td>
@@ -55,7 +56,7 @@
 						<c:url var="visitsLink"	value="customerVisitsList">
 							<c:param name="customerId" value="${customer.id}" />
 						</c:url>
-						<a href="${visitsLink}">Visits</a>
+						<a href="${visitsLink}">${customer.visitsNumber}</a>
 					</td>
 					<td align="center">
 						<form action="formForUpdate" method="get" style="display:inline;">
@@ -69,7 +70,7 @@
 					</td>
 	
 				</tr>
-	
+				
 			</c:forEach>
 	
 		</table>

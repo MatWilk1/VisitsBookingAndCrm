@@ -14,6 +14,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -43,6 +45,10 @@ public class Customer {
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List<Visit> visits;
+	
+	// Formula to retrieve number of visits. For bigger bases should use different approach to avoid efficiency problem.
+	@Formula("(select count(v.id) from visit v where v.customer_id = id)")
+	private int visitsNumber;
 
 	public Customer() {
 
@@ -95,7 +101,14 @@ public class Customer {
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
+	
+	public int getVisitsNumber() {
+		return visitsNumber;
+	}
 
+	public void setVisitsNumber(int visitsNumber) {
+		this.visitsNumber = visitsNumber;
+	}
 
 	@Override
 	public String toString() {

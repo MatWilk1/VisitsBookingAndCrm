@@ -91,4 +91,17 @@ public class VisitDAOImpl implements VisitDAO {
 
 	}
 
+	// Not using for present solution.
+//	@Override
+//	public List<Integer> getNumberOfVisits() {
+//
+//		Session session = sessionFactory.getCurrentSession();
+//		
+//		Query query = session.createSQLQuery("select t1.v_number from (select c.id as c_id, count(v.id) as v_number from Customer c left join Visit v on c.id=v.customer_id group by c.id order by c.last_name) as t1");
+//				
+//		List<Integer> visitsNumber = query.getResultList();
+//		
+//		return visitsNumber;
+//	}
+
 }

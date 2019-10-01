@@ -105,8 +105,6 @@ public class VisitController {
 		
 		List<Visit> visits = new ArrayList<Visit>();
 		
-		System.out.println("==> Start showVisitsList: per = " + per);
-		
 		if(per.equals("all")) {
 			visits = visitService.getVisits();
 		}else if(per.equals("today")) {
