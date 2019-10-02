@@ -22,37 +22,17 @@
 	<div class="bottom">
 	<br>
 	
-	<h3 align="center">Fill the visit form</h3>
+	<h3 align="center">Date of the visit</h3>
 	<br>
 
-		<form:form action="processVisitForm" modelAttribute="visit">
-
-			<p>Personal data</p>
-		
-		<form:errors path="customer.firstName" cssClass="error" /> <br>
-		<form:input path="customer.firstName" placeholder="First name"/>
-			
-
-			<br>
-			<form:errors path="customer.lastName" cssClass="error" /><br>
-		<form:input path="customer.lastName" placeholder="Last name"/>
-			
-
-			<br>
-			<form:errors path="customer.phoneNumber" cssClass="error" /> <br>
-		<form:input path="customer.phoneNumber" placeholder="Phone number"/>
-			
-
-			<br>
-			<form:errors path="customer.email" cssClass="error" /><br>
-		<form:input path="customer.email" placeholder="E-mail"/>
-
-
-			<br>
-			<br>
+		<form:form action="addVisitForCustomer" modelAttribute="visit">
 
 			<p>Date of the visit</p>
 
+			<form:hidden path="customer.firstName" />
+			<form:hidden path="customer.lastName" />
+			<form:hidden path="customer.phoneNumber" />
+			<form:hidden path="customer.email" />
 
 			<table class="table-visit-form">
 
@@ -93,7 +73,7 @@
 		</form:form>
 
 
-		<a href="${pageContext.request.contextPath}"> Back to home page</a> <br>
+		<a href="${pageContext.request.contextPath}/customer/list"> Back to CRM</a> <br>
 		<br>
 
 	</div>

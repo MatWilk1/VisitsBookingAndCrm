@@ -62,7 +62,8 @@ public class VisitController {
 	}
 
 	@PostMapping("/processVisitForm")
-	public String processVisitForm(@Valid @ModelAttribute("visit") Visit visit, BindingResult bindingResult, Model model) {
+	public String processVisitForm(@Valid @ModelAttribute("visit") Visit visit, BindingResult bindingResult,
+			Model model) {
 
 		// Create date using chosen date and time and check if date is free
 		boolean bookedDate = visit.createDate(visitService.getPossibleVisitTerms());
@@ -72,18 +73,18 @@ public class VisitController {
 		Customer customer = visit.getCustomer();
 		customer.setVisits(Arrays.asList(visit));
 
-		// Check if there are result error or if chosen term is already booked 
+		// Check if there are result error or if chosen term is already booked
 		if (bindingResult.hasErrors() || bookedDate) {
 			visit.setDateOptions(getPossibleVisitDates(visitService.getPossibleVisitTerms()));
 			visit.setTimeOptions(visit.initTimeOptions());
-			
+
 			List<LocalTime> freeTerms = new ArrayList<>();
 			freeTerms = getFreeVisitHours(visitService.getPossibleVisitTerms(), visit.getChosenDate());
 			model.addAttribute("free", freeTerms);
 
 			return "visit-form";
 		} else {
-			// Check if customer with the same firstName and lastName and (phone or e-mail) exists
+			// Check if customer with the same firstName and lastName and phone or e-mail exists
 			// If exists update his phone or e-mail if one of them was changed
 			int id = customerService.getIdIfExists(customer);
 
@@ -98,38 +99,90 @@ public class VisitController {
 		}
 
 	}
-	
-	
+
 	@GetMapping("/list")
 	public String showVisitsList(@RequestParam("period") String per, Model model) {
-		
+
 		List<Visit> visits = new ArrayList<Visit>();
-		
-		if(per.equals("all")) {
+
+		if (per.equals("all")) {
 			visits = visitService.getVisits();
-		}else if(per.equals("today")) {
-			visits = visitService.getVisitsPeriod(LocalDateTime.now().toLocalDate().atStartOfDay(), LocalDateTime.now().toLocalDate().atStartOfDay().plusDays(1));
-		}else if(per.equals("future")) {
-			visits = visitService.getVisitsPeriod(LocalDateTime.now(), LocalDateTime.now().toLocalDate().atStartOfDay().plusYears(1));
-		}else {visits = null;};
-		
+		} else if (per.equals("today")) {
+			visits = visitService.getVisitsPeriod(LocalDateTime.now().toLocalDate().atStartOfDay(),
+					LocalDateTime.now().toLocalDate().atStartOfDay().plusDays(1));
+		} else if (per.equals("future")) {
+			visits = visitService.getVisitsPeriod(LocalDateTime.now(),
+					LocalDateTime.now().toLocalDate().atStartOfDay().plusYears(1));
+		} else {
+			visits = null;
+		}
+		;
+
 		model.addAttribute("visits", visits);
-		
+
 		return "visits-list";
 	}
-	
-	
+
 	@GetMapping("/delete")
 	public String delete(@RequestParam("visitId") int id, RedirectAttributes redirectAttributes) {
-		
+
 		visitService.deleteVisit(id);
-		
+
 		// Redirect "period" to /list and show all existing visits
 		redirectAttributes.addAttribute("period", "all");
-		
+
 		return "redirect:/visit/list";
 	}
 
+	@GetMapping("/formForVisit")
+	public String showVisitFormForCustomer(@RequestParam("customerId") int id, Model model) {
+
+		Customer customer = customerService.getCustomer(id);
+
+		Visit visit = new Visit();
+		visit.setCustomer(customer);
+
+		// Set drop-down lists
+		visit.setDateOptions(getPossibleVisitDates(visitService.getPossibleVisitTerms()));
+		visit.setTimeOptions(visit.initTimeOptions());
+
+		model.addAttribute("visit", visit);
+
+		return "visit-form-for-customer-in-base";
+	}
+
+	
+	@PostMapping("/addVisitForCustomer")
+	public String addVisitForCustomer(@ModelAttribute("visit") Visit visit, Model model) {
+
+		System.out.println("Przekazana wizyta: " + visit);
+		// Create date using chosen date and time and check if date is free
+		boolean bookedDate = visit.createDate(visitService.getPossibleVisitTerms());
+
+		Customer customer = visit.getCustomer();
+		customer.setVisits(Arrays.asList(visit));
+
+		// Check if chosen term is already booked
+		if (bookedDate) {
+			visit.setDateOptions(getPossibleVisitDates(visitService.getPossibleVisitTerms()));
+			visit.setTimeOptions(visit.initTimeOptions());
+
+			List<LocalTime> freeTerms = new ArrayList<>();
+			freeTerms = getFreeVisitHours(visitService.getPossibleVisitTerms(), visit.getChosenDate());
+			model.addAttribute("free", freeTerms);
+
+			return "visit-form-for-customer-in-base";
+		} else {
+			
+			// Before save, need to set proper ID to avoid customer duplication.
+			customer.setId(customerService.getIdIfExists(customer));
+			customerService.saveCustomer(customer);
+
+			return "visit-confirmation-for-customer-in-base";
+		}
+
+	}
+	
 
 	// Return all days with at least one free visit term (in time scope when booking is available)
 	public List<LocalDate> getPossibleVisitDates(List<LocalDateTime> possibleTerms) {
@@ -145,7 +198,6 @@ public class VisitController {
 		return possibleDates;
 	}
 
-	
 	// Return all free visit hours in chosen day
 	public List<LocalTime> getFreeVisitHours(List<LocalDateTime> possibleVisitTerms, LocalDate visitDate) {
 

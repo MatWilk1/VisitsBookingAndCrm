@@ -63,6 +63,10 @@
 							<button name="customerId" value="${customer.id}">Update</button>
 						</form>
 						|
+						<form action="${pageContext.request.contextPath}/visit/formForVisit" method="get" style="display:inline;">
+							<button name="customerId" value="${customer.id}">Add visit</button>
+						</form>
+						|
 						<form action="delete" method="get" style="display:inline;">
 							<button name="customerId" value="${customer.id}"
 								onclick="if(!(confirm('Customer and all his visits will be deleted. Are you sure you want to proceed?'))) return false">Delete</button>
